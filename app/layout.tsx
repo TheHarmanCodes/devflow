@@ -3,7 +3,9 @@ import { Inter, Space_Grotesk, Geist } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/ui/navigation/navbar";
+import { Toaster } from "@/components/ui/toast";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -26,7 +28,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+const RootLayout = async ({ children }: LayoutProps<"/">) => {
+  const session = await auth();
+
   return (
     <html
       lang="en"
@@ -40,17 +44,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         geist.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
+      <SessionProvider session={session}>
+        <body className="min-h-full flex flex-col">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </body>
+      </SessionProvider>
     </html>
   );
-}
+};
+
+export default RootLayout;
