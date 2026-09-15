@@ -5,7 +5,7 @@ import ROUTES from "@/constant/routes";
 const Home = async () => {
   const session = await auth();
 
-  console.log(session);
+  // console.log(session);
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center ">

@@ -45,7 +45,7 @@ const SocialAuthform = () => {
       <Button className={buttonClass} onClick={() => handleSignIn("google")}>
         <Image
           src="/icons/google.svg"
-          alt="GitHub logo"
+          alt="Google logo"
           width={20}
           height={20}
           className=" mr-2.5 object-contain"
