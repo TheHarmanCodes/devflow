@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "../button";
+import { Button } from "../ui/button";
 import Image from "next/image";
-import { toast } from "../toast";
+import { toast } from "../ui/toast";
 import { signIn } from "next-auth/react";
 import ROUTES from "@/constant/routes";
 
@@ -39,6 +39,7 @@ const SocialAuthform = () => {
           width={20}
           height={20}
           className="invert-colors mr-2.5 object-contain"
+          loading="eager"
         />
         <span>Log in with GitHub</span>
       </Button>
@@ -49,6 +50,7 @@ const SocialAuthform = () => {
           width={20}
           height={20}
           className=" mr-2.5 object-contain"
+          loading="eager"
         />
         <span>Log in with Google</span>
       </Button>
