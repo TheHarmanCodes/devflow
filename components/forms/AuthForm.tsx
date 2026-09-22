@@ -43,6 +43,7 @@ const AuthForm = <T extends FieldValues>({
   const handleSubmit: SubmitHandler<T> = async () => {
     // TODO: Authenticate user
   };
+
   const buttonText = formType === "SIGN_UP" ? "Sign Up" : "Sign In";
 
   return (
