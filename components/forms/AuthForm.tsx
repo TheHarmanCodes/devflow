@@ -40,9 +40,10 @@ const AuthForm = <T extends FieldValues>({
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async () => {
-    // TODO: Authenticate user
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    await onSubmit(data);
   };
+
   const buttonText = formType === "SIGN_UP" ? "Sign Up" : "Sign In";
 
   return (
@@ -75,12 +76,18 @@ const AuthForm = <T extends FieldValues>({
                   type={field.name === "password" ? "password" : "text"}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                  autoComplete="off"
+                  aria-describedby={
+                    fieldState.invalid ? `${field.name}-error` : undefined
+                  }
+                  autoComplete="on"
                   className="paragraph-regular background-light900_dark300 light-border-2
                                     text-dark300_light700 no-focus min-h-12 rounded-1.5 border"
                 />
                 {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
+                  <FieldError
+                    id={`${field.name}-error`}
+                    errors={[fieldState.error]}
+                  />
                 )}
               </Field>
             )}
@@ -88,6 +95,7 @@ const AuthForm = <T extends FieldValues>({
         </FieldGroup>
       ))}
       <Button
+        type="submit"
         disabled={form.formState.isSubmitting}
         className="primary-gradient paragraph-medium min-h-12 w-full 
         rounded-2 px-4 py-3 font-inter text-light-900! cursor-pointer"
@@ -100,7 +108,7 @@ const AuthForm = <T extends FieldValues>({
       </Button>
       {formType === "SIGN_IN" ? (
         <p>
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href={ROUTES.SIGN_UP}
             className="paragraph-semibold primary-text-gradient"

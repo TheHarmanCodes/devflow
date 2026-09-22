@@ -44,6 +44,13 @@ const RootLayout = async ({ children }: LayoutProps<"/">) => {
         geist.variable,
       )}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <SessionProvider session={session}>
         <body className="min-h-full flex flex-col">
           <ThemeProvider
