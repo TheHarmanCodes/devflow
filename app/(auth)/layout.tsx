@@ -1,4 +1,4 @@
-import SocialAuthform from "@/components/ui/forms/SocialAuthform";
+import SocialAuthform from "@/components/forms/SocialAuthform";
 import Image from "next/image";
 import React from "react";
 
@@ -19,10 +19,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             height={50}
             alt="DevFlow logo"
             className="object-contain"
+            loading="eager"
           />
         </div>
         {children}
-
         <SocialAuthform />
       </section>
     </main>
