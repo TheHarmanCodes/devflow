@@ -51,7 +51,7 @@ const RightSidebar = () => {
             className="flex cursor-pointer items-center justify-between gap-7 py-3"
           >
             <p className="body-medium text-dark500_light700">
-              {question.title}base-medium
+              {question.title}
             </p>
             <Image
               src="/icons/chevron-right.svg"

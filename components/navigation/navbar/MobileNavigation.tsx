@@ -14,13 +14,13 @@ import NavLinks from "./NavLinks";
 const MobileNavigation = () => {
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger className="sm:hidden">
         <Image
           src="/icons/hamburger.svg"
           alt="Menu"
           width={36}
           height={36}
-          className="invert-colors sm:hidden"
+          className="invert-colors"
         />
       </SheetTrigger>
       <SheetContent
@@ -41,15 +41,13 @@ const MobileNavigation = () => {
           </p>
         </Link>
         <div className="no-scrollbar flex h-[calc(100vh-80px)] flex-col justify-between overflow-y-auto">
-
-            <section className="flex h-full flex-col gap-6 pt-16">
-              <NavLinks isMobileNav />
-            </section>
-
+          <section className="flex h-full flex-col gap-6 pt-16">
+            <NavLinks isMobileNav />
+          </section>
 
           <div className="flex flex-col gap-3">
             <SheetClose
-                nativeButton={false}
+              nativeButton={false}
               render={
                 <Link
                   href={ROUTES.SIGN_IN}
@@ -61,7 +59,7 @@ const MobileNavigation = () => {
               <span className="text-[16px] primary-text-gradient">Log In</span>
             </SheetClose>
             <SheetClose
-                nativeButton={false}
+              nativeButton={false}
               render={
                 <Link
                   href={ROUTES.SIGN_UP}
