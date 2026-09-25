@@ -1,5 +1,5 @@
 import LocalSearch from "@/components/search/LocalSearch";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import ROUTES from "@/constant/routes";
 import Link from "next/link";
 
@@ -39,16 +39,21 @@ const questions = [
 ];
 
 interface SearchParams {
-  searchParams: Promise<{ [key: string]: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const Home = async ({ searchParams }: SearchParams) => {
   // `LocalSearch` writes the typed value to the URL as `?query=...`.
-  const { query = "" } = await searchParams;
+  const { query } = await searchParams;
+  const normalizedQuery = Array.isArray(query)
+    ? (query[0] ?? "")
+    : (query ?? "");
 
   // Filtering uses the URL value, so a URL update causes fresh matching results.
   const filteredQuestions = questions.filter((question) =>
-    question.title.toLocaleLowerCase().includes(query?.toLocaleLowerCase()),
+    question.title
+      .toLocaleLowerCase()
+      .includes(normalizedQuery.toLocaleLowerCase()),
   );
 
   return (
@@ -59,9 +64,15 @@ const Home = async ({ searchParams }: SearchParams) => {
       >
         <h1 className="h1-bold text-dark100_light900">All Questions</h1>
 
-        <Button className="primary-gradient min-h-[46px] px-4 py-3 text-light-900!">
-          <Link href={ROUTES.ASK_QUESTION}>Ask a Question</Link>
-        </Button>
+        <Link
+          href={ROUTES.ASK_QUESTION}
+          className={buttonVariants({
+            className:
+              "primary-gradient min-h-[46px] px-4 py-3 text-light-900!",
+          })}
+        >
+          Ask a Question
+        </Link>
       </section>
       <section className="mt-11 ">
         {/* The client search input updates `query`; this server page renders the matches. */}
