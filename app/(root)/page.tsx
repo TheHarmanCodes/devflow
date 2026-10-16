@@ -1,3 +1,5 @@
+import QuestionCard from "@/components/cards/QuestionCard";
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { buttonVariants } from "@/components/ui/button";
 import ROUTES from "@/constant/routes";
@@ -14,11 +16,16 @@ const questions = [
       { _id: "2", name: "State Management" },
       { _id: "3", name: "JavaScript" },
     ],
-    author: { _id: "1", name: "John Doe" },
+    author: {
+      _id: "1",
+      name: "John Doe",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZsGhe35UyAoPCx4aGvPvXQvmp1uo3OhNpxF4D68URQ&s=10",
+    },
     upvotes: 10,
     answers: 5,
     views: 100,
-    createdAt: new Date(),
+    createdAt: new Date("2025-03-04"),
   },
   {
     _id: "2",
@@ -26,11 +33,15 @@ const questions = [
     description:
       "React and Angular are both popular front-end frameworks, but they have some key differences. React is a library that focuses on building UI components, while Angular is a full-fledged framework that provides a complete solution for building web applications.",
     tags: [
-      { _id: "1", name: "React" },
-      { _id: "2", name: "Angular" },
-      { _id: "3", name: "Frontend" },
+      { _id: "1", name: "Angular" },
+      { _id: "2", name: "Frontend" },
     ],
-    author: { _id: "1", name: "John Doe" },
+    author: {
+      _id: "2",
+      name: "Jane",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvOwqeS0L5ypI3Lmf9OC6uPFg9xSwAc4hlpzaoSBT-w&s=10",
+    },
     upvotes: 15,
     answers: 8,
     views: 200,
@@ -39,22 +50,26 @@ const questions = [
 ];
 
 interface SearchParams {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 const Home = async ({ searchParams }: SearchParams) => {
   // `LocalSearch` writes the typed value to the URL as `?query=...`.
-  const { query } = await searchParams;
-  const normalizedQuery = Array.isArray(query)
-    ? (query[0] ?? "")
-    : (query ?? "");
-
+  const { query = "", filter = "" } = await searchParams;
   // Filtering uses the URL value, so a URL update causes fresh matching results.
-  const filteredQuestions = questions.filter((question) =>
-    question.title
-      .toLocaleLowerCase()
-      .includes(normalizedQuery.toLocaleLowerCase()),
-  );
+  const filteredQuestions = questions.filter((question) => {
+    // show the current question if it query is somewhere in question title
+    const matchesQuery = question.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+
+    // OR show when filter value included in question tags
+    const matchesFilter = filter
+      ? question.tags[0].name?.toLowerCase() === filter.toLowerCase()
+      : true;
+
+    return matchesQuery && matchesFilter;
+  });
 
   return (
     <>
@@ -84,9 +99,11 @@ const Home = async ({ searchParams }: SearchParams) => {
         />
       </section>
 
+      <HomeFilter />
+
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
-          <h1 key={question._id}>{question.title}</h1>
+          <QuestionCard key={question._id} question={question} />
         ))}
       </div>
     </>
