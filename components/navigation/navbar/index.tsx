@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import Theme from "./Theme";
 import MobileNavigation from "@/components/navigation/navbar/MobileNavigation";
-import DesktopNavigation from "../RightSidebar";
 
 const Navbar = () => {
   return (

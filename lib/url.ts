@@ -16,11 +16,13 @@ interface RemoveUrlQueryParams {
  * Used by LocalSearch after its typing debounce completes.
  */
 export const formUrlQuery = ({ params, key, value }: UrlQueryParams) => {
-  const queryString = qs.parse(params);
+  /* https://www.npmjs.com/package/query-string */
+  const queryString = qs.parse(params); // url -> json
 
   queryString[key] = value;
 
   return qs.stringifyUrl({
+    // json -> url
     url: window.location.pathname,
     query: queryString,
   });
