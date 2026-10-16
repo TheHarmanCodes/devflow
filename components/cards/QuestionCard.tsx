@@ -1,7 +1,6 @@
 import ROUTES from "@/constant/routes";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
-import React from "react";
 import TagCard from "./TagCard";
 import Metric from "../Metric";
 
@@ -58,7 +57,7 @@ const QuestionCard = ({
             imgUrl="/icons/message.svg"
             alt="answers"
             value={answers}
-            title="Anwers"
+            title="Answers"
             textStyles="small-medium text-dark400_light800"
           />
           <Metric
