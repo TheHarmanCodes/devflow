@@ -5,6 +5,8 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/url";
 
+// temporary filters for demonstration purposes. In a real application,
+//  these would likely come from an API or a constants file.
 const filters = [
   { name: "React", value: "react" },
   { name: "Angular", value: "angular" },
@@ -22,7 +24,7 @@ const HomeFilter = () => {
 
   const handleTypeClick = (filter: string) => {
     let newUrl = "";
-
+    // If the clicked filter is already active, remove it; otherwise, set it as active.
     if (filter === active) {
       setActive("");
 

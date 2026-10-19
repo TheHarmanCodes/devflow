@@ -5,6 +5,7 @@ import { buttonVariants } from "@/components/ui/button";
 import ROUTES from "@/constant/routes";
 import Link from "next/link";
 
+// Mock data for questions
 const questions = [
   {
     _id: "1",
@@ -63,7 +64,7 @@ const Home = async ({ searchParams }: SearchParams) => {
       .toLowerCase()
       .includes(query.toLowerCase());
 
-    // OR show when filter value included in question tags
+    // show the current question if it matches the selected filter, or if no filter is selected
     const matchesFilter = filter
       ? question.tags[0].name?.toLowerCase() === filter.toLowerCase()
       : true;

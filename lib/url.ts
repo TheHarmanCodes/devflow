@@ -13,12 +13,15 @@ interface RemoveUrlQueryParams {
 
 /**
  * Adds or replaces one URL query parameter while retaining all other parameters.
- * Used by LocalSearch after its typing debounce completes.
+ * here params is a string of query parameters, key is the parameter to add or replace, and value is the new value for that parameter.
+ * Example parameters: params = "filter=react&sort=asc", key = "filter", value = "angular"
+ * Result: "filter=angular&sort=asc"
  */
 export const formUrlQuery = ({ params, key, value }: UrlQueryParams) => {
   /* https://www.npmjs.com/package/query-string */
   const queryString = qs.parse(params); // url -> json
 
+  // queryString is now an object representation of the query parameters, e.g., { filter: "react", sort: "asc" }
   queryString[key] = value;
 
   return qs.stringifyUrl({

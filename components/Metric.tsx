@@ -12,6 +12,9 @@ interface Props {
   isAuthor?: boolean;
 }
 
+// This component is used to display a metric with an image, value, and title.
+// It can optionally be a link if the `href` prop is provided.
+// this component is used in the `QuestionCard` component to display metrics like upvotes, answers, and views.
 const Metric = (props: Props): React.ReactNode => {
   const { imgUrl, alt, value, title, href, textStyles, isAuthor } = props;
   const metricContent = (
@@ -25,6 +28,7 @@ const Metric = (props: Props): React.ReactNode => {
       />
       <p className={`${textStyles} flex items-center gap-1`}>
         {value}
+        {/* currently , the `isAuthor` prop is used to conditionally hide the title on smaller screens. */}
         <span
           className={`small-regular line-clamp-1 ${isAuthor ? "max-sm:hidden" : ""}`}
         >

@@ -15,6 +15,8 @@ const LeftSidebar = () => {
       <div className="flex flex-1 flex-col gap-4 px-3">
         <NavLinks />
       </div>
+
+      {/* Leftsidebar bottom signin/signout buttons */}
       <div className="flex flex-col gap-3 px-3">
         <Button className="small-medium btn-secondary flex min-h-[41px] w-full rounded-lg  py-3 shadow-none">
           <Link href={ROUTES.SIGN_IN}>

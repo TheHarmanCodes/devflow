@@ -53,3 +53,24 @@ export const SignUpSchema = z.object({
     .regex(/[a-z]/, "Must contain a lowercase letter")
     .regex(/[0-9]/, "Must contain a number"),
 });
+
+export const AskQuestionSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(1, "Title is required.")
+    .max(100, "Title cannot exceed 100 characters."),
+
+  content: z.string().trim().min(20, "Content must be at least 20 characters."),
+
+  tags: z
+    .array(
+      z
+        .string()
+        .trim()
+        .min(1, "Tag cannot be empty.")
+        .max(20, "Tag cannot exceed 20 characters."),
+    )
+    .min(1, "At least one tag is required.")
+    .max(5, "You can add up to 5 tags."),
+});
