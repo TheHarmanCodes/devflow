@@ -49,6 +49,7 @@ const LocalSearch = ({ route, imgSrc, placeholder, otherClasses }: Props) => {
         router.replace(newUrl, { scroll: false });
       } else {
         // Only remove `query` when it is currently present in the URL.
+        // This prevents unnecessary URL updates when the input is cleared but the URL already has no `query`.
         if (pathname === route && query) {
           const newUrl = removeKeysFromQuery({
             params: searchParams.toString(),
@@ -59,7 +60,8 @@ const LocalSearch = ({ route, imgSrc, placeholder, otherClasses }: Props) => {
         }
       }
     }, 500);
-
+    // simply clears the timeout if the effect is re-run before the timeout completes,
+    //  preventing multiple updates from being queued.
     return () => clearTimeout(delayDebounceFn);
   }, [isSearchOpen, searchQuery, query, router, route, searchParams, pathname]);
 
@@ -80,8 +82,8 @@ const LocalSearch = ({ route, imgSrc, placeholder, otherClasses }: Props) => {
         type="text"
         placeholder={placeholder}
         value={searchQuery}
-        onFocus={() => setIsSearchOpen(true)}
-        onBlur={() => setIsSearchOpen(false)}
+        onFocus={() => setIsSearchOpen(true)} // Start searching when the user focuses the input
+        onBlur={() => setIsSearchOpen(false)} // Stop searching when the user blurs the input
         onChange={(e) => {
           setSearchQuery(e.target.value);
         }}
