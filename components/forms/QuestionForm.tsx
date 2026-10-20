@@ -105,6 +105,10 @@ const QuestionForm = () => {
 
               {/* Code Editor */}
               <Editor
+                aria-invalid={fieldState.invalid}
+                aria-describedby={
+                  fieldState.invalid ? `${field.name}-error` : undefined
+                }
                 editorRef={editorRef}
                 fieldChange={field.onChange}
                 markdown={field.value}

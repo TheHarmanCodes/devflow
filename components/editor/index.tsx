@@ -61,7 +61,6 @@ const Editor = ({
         quotePlugin(),
         linkPlugin(),
         linkDialogPlugin(),
-        quotePlugin(),
         thematicBreakPlugin(),
         markdownShortcutPlugin(),
         tablePlugin(),
